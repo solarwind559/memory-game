@@ -1,3 +1,6 @@
+![Screenshot 1](Screenshot_1.png)
+![Screenshot 2](Screenshot_3.png)
+
 # memory-game
 
 ## Project setup
