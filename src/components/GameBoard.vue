@@ -11,7 +11,7 @@
           @card-flipped="handleCardFlipped"
         />
       </div>
-      <button v-if="showPlayAgainButton" @click="resetGame" class="btn btn-primary d-flex justify-content-center mt-3">Play again?</button>
+      <button v-if="showPlayAgainButton" @click="resetGame" class="btn btn-primary d-flex justify-content-center mt-3 mx-auto">Play again?</button>
     </div>
   </div>
 </template>
@@ -27,16 +27,18 @@ export default {
   },
   data() {
     return {
-      cards: this.generateCards(),
+      cards: [],
       flippedCards: [],
       matchedCards: [],
       message: '',
       showPlayAgainButton: false // visibility of the 'play again' button
     };
   },
+  created() {
+    this.resetGame(); // Initialize the game when the component is created
+  },
   methods: {
     generateCards() {
-
       let cards = [
         { id: 1, frontImage: require('@/assets/img/1.jpg'), isFlipped: false },
         { id: 2, frontImage: require('@/assets/img/2.jpg'), isFlipped: false },
@@ -45,12 +47,13 @@ export default {
         { id: 5, frontImage: require('@/assets/img/6.jpg'), isFlipped: false },
         { id: 6, frontImage: require('@/assets/img/7.jpg'), isFlipped: false }
       ];
-      cards = cards.concat(cards.map(card => ({ ...card, id: card.id + 2 }))); // Create pairs and shuffle
-      return cards.sort(() => Math.random() - 0.5); // Shuffle
+      // Create pairs with unique IDs and shuffle
+      let pairedCards = cards.concat(cards.map(card => ({ ...card, id: card.id + 100 })));
+      return pairedCards.sort(() => Math.random() - 0.5); // Shuffle
     },
     handleCardFlipped(card) {
       if (!card.isFlipped && this.flippedCards.length < 2) {
-        card.isFlipped = true;  // flip only the selected card
+        card.isFlipped = true; // flip only the selected card
         this.flippedCards.push(card);
         if (this.flippedCards.length === 2) {
           if (this.flippedCards[0].frontImage === this.flippedCards[1].frontImage) {
@@ -61,21 +64,21 @@ export default {
                 this.message = 'Game complete!'; // when all matches are found
                 this.showPlayAgainButton = true; // show the play again button
               } else {
-                this.message = ''; // clear the match message after 2 seconds
+                this.message = ''; // clear the match message after 1 second
               }
             }, 1000);
             this.flippedCards = [];
           } else {
             setTimeout(() => {
               this.resetFlippedCards();
-            }, 1000);  // reset cards after 1 second if they don't match
+            }, 1000); // reset cards after 1 second if they don't match
           }
         }
       }
     },
     resetFlippedCards() {
       this.flippedCards.forEach(card => {
-        card.isFlipped = false;  // flip back non-matched cards
+        card.isFlipped = false; // flip back non-matched cards
       });
       this.flippedCards = [];
       if (this.matchedCards.length !== this.cards.length) {
@@ -92,6 +95,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .found-a-match {
