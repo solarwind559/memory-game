@@ -1,5 +1,5 @@
 <template>
-  <div class="col-3 m-0 d-flex justify-content-center align-items-center p-1">
+  <div class="col-4 col-md-3 m-0 d-flex justify-content-center align-items-center p-1">
     <div class="boardcard" @click="flipCard">
       <div class="card-inner" :class="{ 'flipped': card.isFlipped }">
         <div class="card-front">

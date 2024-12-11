@@ -11,7 +11,7 @@
           @card-flipped="handleCardFlipped"
         />
       </div>
-      <button v-if="showPlayAgainButton" @click="resetGame" class="btn btn-primary">Play again?</button>
+      <button v-if="showPlayAgainButton" @click="resetGame" class="btn btn-primary d-flex justify-content-center mt-3">Play again?</button>
     </div>
   </div>
 </template>
@@ -112,6 +112,10 @@ export default {
 .board {
   position: relative;
   max-width: 608px;
-  /* background-color: rgb(12, 50, 37);
-  border: 4px solid rgb(12, 50, 37); */
-}</style>
+  /* background: #fff;
+  border: 15px solid #fff;
+  border-radius: 20px; */
+}
+
+
+</style>
